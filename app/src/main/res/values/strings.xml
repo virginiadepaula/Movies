@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Movies</string>
+
+    <string-array name="titulos_tab">
+        <item>Ação</item>
+        <item>Drama</item>
+        <item>Fantasia</item>
+        <item>Ficção</item>
+    </string-array>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
