@@ -7,5 +7,6 @@
         <item>Fantasia</item>
         <item>Ficção</item>
     </string-array>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movie_title">Movies</string>
+
 </resources>
