@@ -2,18 +2,34 @@ package com.example.movies
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MoviesViewModel: ViewModel() {
     val moviesLiveData: MutableLiveData<List<Movie>> = MutableLiveData()
 
     fun getMovies(){
-        moviesLiveData.value = getExempleMovies()
-    }
+        ApiService.service.getMovies().enqueue(object : Callback<MoviesBodyResponse>{
+            override fun onResponse(call: Call<MoviesBodyResponse>, response: Response<MoviesBodyResponse>) {
+                 if(response.isSuccessful) {
+                     val movies:MutableList<Movie> = mutableListOf()
 
-    fun getExempleMovies():List<Movie>{
-        return listOf(
-            Movie("Minha mae eh uma peca", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZHANY_snfv70egUCamnC53zmyqabZMC39Bjho0ZkiRtdUFNCa"),
-            Movie("Mad Max", "https://personaunesp.com.br/wp-content/uploads/2016/02/mad-max.jpg")
-        )
+                     response.body()?.let {moviesBodyResponse ->
+                         for (results in moviesBodyResponse.movieResults) {
+                             val movie = Movie(
+                                 title = results.title ,
+                                 poster_path = results.poster_path
+                             )
+                            movies.add(movie)
+                         }
+                         moviesLiveData.value = movies
+                     }
+                 }
+            }
+
+            override fun onFailure(call: Call<MoviesBodyResponse>, t: Throwable) {
+            }
+        })
     }
 }
