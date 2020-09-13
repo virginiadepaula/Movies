@@ -19,7 +19,8 @@ class MoviesViewModel: ViewModel() {
                          for (results in moviesBodyResponse.movieResults) {
                              val movie = Movie(
                                  title = results.title ,
-                                 poster_path = results.poster_path
+                                 poster_path = results.poster_path,
+                                 overview = results.overview
                              )
                             movies.add(movie)
                          }

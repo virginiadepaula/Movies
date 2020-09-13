@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         val moviesAdapter = MoviesPageAdapter(this, titulosTab)
         viewPager.adapter = moviesAdapter
 
-
         TabLayoutMediator(tabLayout,viewPager){ tab, position ->
             tab.text = titulosTab[position]
         }.attach()
