@@ -1,20 +1,15 @@
-package com.example.movies
+package com.example.movies.features.details
 
 import android.content.Context
 import android.content.Intent
-import android.icu.text.CaseMap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.movies.R
+import com.example.movies.features.movies.MoviesAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_describe.*
-import kotlinx.android.synthetic.main.activity_main.*
-import java.security.AccessControlContext
 
-class DescribeActivity : AppCompatActivity() {
+class MovieDetailsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_describe)

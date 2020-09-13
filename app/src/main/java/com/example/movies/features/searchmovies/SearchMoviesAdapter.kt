@@ -1,9 +1,11 @@
-package com.example.movies
+package com.example.movies.features.searchmovies
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.movies.R
+import com.example.movies.model.Movie
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.adapter_search.view.*
 

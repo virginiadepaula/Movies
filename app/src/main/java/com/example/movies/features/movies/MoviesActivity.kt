@@ -1,4 +1,4 @@
-package com.example.movies
+package com.example.movies.features.movies
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
@@ -7,13 +7,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.example.movies.*
+import com.example.movies.features.details.MovieDetailsActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_movies.*
 
 
-
-class MainActivity : AppCompatActivity() {
+class MoviesActivity : AppCompatActivity() {
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,21 +36,6 @@ class MainActivity : AppCompatActivity() {
             tab.text = titulosTab[position]
         }.attach()
 
-        val viewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
-
-        viewModel.moviesLiveData.observe(this, Observer {
-            it?.let { movies ->
-                with(recyclerMovies){
-                    layoutManager = GridLayoutManager(this@MainActivity, 2)
-                    setHasFixedSize(true)
-                    adapter = MoviesAdapter(movies){movie ->
-                        val intent = DescribeActivity.getStartIntent(this@MainActivity, movie.overview, movie.poster_path)
-                        this@MainActivity.startActivity(intent)
-                    }
-                }
-            }
-        })
-        viewModel.getMovies()
     }
 }
 

@@ -1,5 +1,6 @@
-package com.example.movies
+package com.example.movies.model.service
 
+import com.example.movies.model.TheMovieDbServices
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -11,5 +12,5 @@ object ApiService {
             .build()
     }
 
-    val service:TheMovieDbServices  = initRetrofit().create(TheMovieDbServices::class.java)
+    val service: TheMovieDbServices = initRetrofit().create(TheMovieDbServices::class.java)
 }

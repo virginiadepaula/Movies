@@ -1,7 +1,10 @@
-package com.example.movies
+package com.example.movies.features.searchmovies
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.movies.model.Movie
+import com.example.movies.model.response.SearchMovieBodyResponse
+import com.example.movies.model.service.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

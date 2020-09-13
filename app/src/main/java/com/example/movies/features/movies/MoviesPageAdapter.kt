@@ -1,7 +1,8 @@
-package com.example.movies
+package com.example.movies.features.movies
 
 import androidx.fragment.app.*
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.movies.features.movies.MoviesFragment
 
 class MoviesPageAdapter(manager: FragmentActivity, val itemTitle:Array<String> ) : FragmentStateAdapter(manager) {
 

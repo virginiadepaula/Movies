@@ -1,7 +1,12 @@
-package com.example.movies
+package com.example.movies.features.movies
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.movies.model.Movie
+import com.example.movies.model.MovieGenre
+import com.example.movies.model.response.MoviesBodyResponse
+import com.example.movies.model.service.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -9,8 +14,8 @@ import retrofit2.Response
 class MoviesViewModel: ViewModel() {
     val moviesLiveData: MutableLiveData<List<Movie>> = MutableLiveData()
 
-    fun getMovies(){
-        ApiService.service.getMovies().enqueue(object : Callback<MoviesBodyResponse>{
+    fun getMovies(movieGenre: MovieGenre){
+        ApiService.service.getMovies(movieGenre.genre).enqueue(object : Callback<MoviesBodyResponse>{
             override fun onResponse(call: Call<MoviesBodyResponse>, response: Response<MoviesBodyResponse>) {
                  if(response.isSuccessful) {
                      val movies:MutableList<Movie> = mutableListOf()
@@ -30,6 +35,7 @@ class MoviesViewModel: ViewModel() {
             }
 
             override fun onFailure(call: Call<MoviesBodyResponse>, t: Throwable) {
+                Log.v("retrofit","call failed")
             }
         })
     }
