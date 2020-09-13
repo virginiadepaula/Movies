@@ -3,17 +3,10 @@ package com.example.movies
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.activity_main.*
@@ -49,7 +42,10 @@ class MainActivity : AppCompatActivity() {
                 with(recyclerMovies){
                     layoutManager = GridLayoutManager(this@MainActivity, 2)
                     setHasFixedSize(true)
-                    adapter = MoviesAdapter(movies)
+                    adapter = MoviesAdapter(movies){movie ->
+                        val intent = DescribeActivity.getStartIntent(this@MainActivity, movie.overview, movie.poster_path)
+                        this@MainActivity.startActivity(intent)
+                    }
                 }
             }
         })

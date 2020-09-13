@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.adapter_movie.view.*
+import kotlinx.android.synthetic.main.adapter_search.view.*
 
 class SearchMoviesAdapter(private val listSearchMovie:List<Movie>):RecyclerView.Adapter<SearchMoviesAdapter.SearchMoviesViewHolder>() {
 
@@ -21,8 +21,8 @@ class SearchMoviesAdapter(private val listSearchMovie:List<Movie>):RecyclerView.
     override fun getItemCount(): Int = listSearchMovie.count()
 
     class SearchMoviesViewHolder(view: View):RecyclerView.ViewHolder(view){
-        private val title = view.titleMovie
-        private val image = view.imageMovie
+        private val title = view.titleSearchMovie
+        private val image = view.imageSearch
 
         fun bindViewMovie(movie: Movie){
             title.text = movie.title

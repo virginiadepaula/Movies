@@ -7,11 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.adapter_movie.view.*
 
-class MoviesAdapter(private val listMovie:List<Movie>): RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(){
+class MoviesAdapter(
+    private val listMovie:List<Movie>,
+    val onItemClickListener: ((movie: Movie) -> Unit)
+) : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>(){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.adapter_movie, parent,false)
-        return MoviesViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, view: Int): MoviesViewHolder {
+        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.adapter_movie, parent,false)
+        return MoviesViewHolder(itemView, onItemClickListener)
     }
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
@@ -20,14 +23,18 @@ class MoviesAdapter(private val listMovie:List<Movie>): RecyclerView.Adapter<Mov
 
     override fun getItemCount() = listMovie.count()
 
-    class MoviesViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    class MoviesViewHolder(itemView: View, val onItemClickListener: ((movie: Movie) -> Unit)) : RecyclerView.ViewHolder(itemView){
 
-        private val title = view.titleMovie
-        private val image = view.imageMovie
+        private val title = itemView.titleMovie
+        private val image = itemView.imageMovie
 
         fun bindViewMovie(movie: Movie){
             title.text = movie.title
             Picasso.get().load(movie.poster_path).into(image)
+
+            itemView.setOnClickListener{
+                onItemClickListener.invoke(movie)
+            }
         }
     }
 }
