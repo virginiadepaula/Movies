@@ -1,15 +1,18 @@
 package com.example.movies.features.movies
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.movies.*
 import com.example.movies.features.details.MovieDetailsActivity
+import com.example.movies.features.searchmovies.SearchActivity
 import com.example.movies.model.Movie
 import com.example.movies.model.MovieGenre
 import com.google.android.material.tabs.TabLayout
@@ -46,6 +49,18 @@ class MoviesActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         getMenuInflater().inflate(R.menu.menu, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+       R.id.action_search -> {
+           val intent = Intent(this, SearchActivity::class.java)
+           this.startActivity(intent)
+           true
+        }
+
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     fun goToDetails(movie:Movie){
