@@ -57,7 +57,7 @@ class SearchActivity : AppCompatActivity() {
 
         recyclerSearchMovies.layoutManager = GridLayoutManager(this@SearchActivity, 2)
         recyclerSearchMovies.setHasFixedSize(true)
-        recyclerSearchMovies.adapter = MoviesAdapter(emptyList<Movie>()){movie ->
+        recyclerSearchMovies.adapter = MoviesAdapter(this, emptyList<Movie>()){movie ->
             goToDetails(movie)
         }
 
@@ -65,7 +65,7 @@ class SearchActivity : AppCompatActivity() {
 
         viewModel.moviesLiveData.observe(this, Observer {
             it?.let { movies ->
-                recyclerSearchMovies.adapter = MoviesAdapter(movies){movie ->
+                recyclerSearchMovies.adapter = MoviesAdapter(this,movies){movie ->
                     goToDetails(movie)
                 }
                 recyclerSearchMovies.adapter?.notifyDataSetChanged()

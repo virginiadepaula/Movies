@@ -34,7 +34,7 @@ class MoviesFragment : Fragment() {
                 with(recyclerMovies){
                     layoutManager = GridLayoutManager(this.context, 2)
                     setHasFixedSize(true)
-                    adapter = MoviesAdapter(movies){movie ->
+                    adapter = MoviesAdapter(this@MoviesFragment.activity as MoviesActivity, movies){movie ->
                         (activity as MoviesActivity).goToDetails(movie)
                     }
                 }
