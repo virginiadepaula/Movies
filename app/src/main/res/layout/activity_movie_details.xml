@@ -9,17 +9,17 @@
     <ImageView
         android:id="@+id/imageDescribe"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/describeMovie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Descrição"
         android:textColor="@android:color/black"
-        android:textStyle="bold"
-        tools:text="Descrição" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/overviewMovie"

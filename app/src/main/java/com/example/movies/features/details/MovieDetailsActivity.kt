@@ -5,31 +5,26 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.movies.R
-import com.example.movies.features.movies.MoviesAdapter
+import com.example.movies.imageUrl
+import com.example.movies.model.Movie
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_describe.*
+import kotlinx.android.synthetic.main.activity_movie_details.*
 
 class MovieDetailsActivity : AppCompatActivity() {
+    lateinit var movie: Movie
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_describe)
+        setContentView(R.layout.activity_movie_details)
 
-        val overview = intent.getStringExtra(EXTRA_OVERVIEW)
-        val poster_path= intent.getStringExtra(EXTRA_POSTER_PATH)
-
-        overviewMovie.text = overview
-        Picasso.get().load(poster_path).into(imageDescribe)
-
+        movie = intent.extras?.getSerializable("movie") as Movie
+        overviewMovie.text = movie.overview
+        Picasso.get().load(imageUrl + movie.poster_path).into(imageDescribe)
     }
 
     companion object{
-        private const val EXTRA_OVERVIEW = "EXTRA_OVERVIEW"
-        private const val EXTRA_POSTER_PATH = "EXTRA_POSTER_PATH"
-
-        fun getStartIntent(context: Context, overview: String, poster_path : String ):Intent{
-            return Intent(context, MoviesAdapter::class.java).apply {
-                putExtra(EXTRA_OVERVIEW, overview)
-                putExtra(EXTRA_POSTER_PATH, poster_path)
+        fun getStartIntent(context: Context, movie: Movie ):Intent{
+            return Intent(context, MovieDetailsActivity::class.java).apply {
+                putExtra("movie", movie)
             }
         }
     }

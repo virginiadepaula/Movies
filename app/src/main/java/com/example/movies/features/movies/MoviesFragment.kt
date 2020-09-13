@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movies.R
+import com.example.movies.features.details.MovieDetailsActivity
 import com.example.movies.model.Movie
 import com.example.movies.model.MovieGenre
 import kotlinx.android.synthetic.main.fragment_movies.*
@@ -19,26 +20,27 @@ class MoviesFragment : Fragment() {
     private lateinit var movieGenre: MovieGenre
     private lateinit var moviesArray: Array<Movie>
 
+    lateinit var viewModel : MoviesViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             movieGenre = it.getSerializable(MOVIE_GENRE) as MovieGenre
         }
-        val viewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MoviesViewModel::class.java)
 
-        viewModel.moviesLiveData.observe(this, Observer {
+        viewModel.moviesLiveData.observe(this, {
             it?.let { movies ->
                 with(recyclerMovies){
                     layoutManager = GridLayoutManager(this.context, 2)
                     setHasFixedSize(true)
                     adapter = MoviesAdapter(movies){movie ->
-                        //    val intent = MovieDetailsActivity.getStartIntent(this@MoviesActivity, movie.overview, movie.poster_path)
-                        //      this@MoviesActivity.startActivity(intent)
+                        (activity as MoviesActivity).goToDetails(movie)
                     }
                 }
             }
         })
-     //   viewModel.getMovies()
+        viewModel.getMovies(movieGenre)
     }
 
     override fun onCreateView(
@@ -52,11 +54,10 @@ class MoviesFragment : Fragment() {
     companion object {
 
         @JvmStatic
-        fun newInstance(param1: Int) =
+        fun newInstance(movieGenre: MovieGenre) =
             MoviesFragment().apply {
                 arguments = Bundle().apply {
-                    putInt(MOVIE_GENRE, param1)
-    //                putString(ARG_PARAM2, param2)
+                    putSerializable(MOVIE_GENRE, movieGenre)
                 }
             }
 
